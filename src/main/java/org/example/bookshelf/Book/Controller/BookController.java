@@ -3,6 +3,7 @@ package org.example.bookshelf.Book.Controller;
 import org.example.bookshelf.Book.Book;
 import org.example.bookshelf.Book.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,9 +15,11 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/allbooks")
-    public List<Book> getAllBooks()
+    public Page<Book> getAllBooks(
+            @RequestParam int page, @RequestParam int size
+    )
     {
-    return bookService.getAllBooks();
+    return bookService.getAllBooks(page, size);
     }
     @PostMapping("/addbook")
     public Book addBook(@RequestBody Book book){

@@ -2,11 +2,12 @@ package org.example.bookshelf.Book.service;
 
 import org.example.bookshelf.Book.Book;
 import org.example.bookshelf.Book.repo.BookRepo;
-import org.example.bookshelf.Category.repo.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class BookService {
@@ -14,8 +15,10 @@ public class BookService {
     private BookRepo bookRepo;
 
 
-    public List<Book> getAllBooks(){
-        return bookRepo.findAll();
+    public Page<Book> getAllBooks(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        return bookRepo.findAll(pageable);
     }
     public Book getBookByTitle(String title){
         return bookRepo.findByTitle(title);
@@ -27,5 +30,6 @@ public class BookService {
         if (bookRepo.findById(book.getId()).isPresent()){return bookRepo.save(book);}
         return book;
     }
+
 
 }
