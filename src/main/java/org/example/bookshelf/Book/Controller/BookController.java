@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController()
 @RequestMapping("/api/book")
@@ -16,10 +15,10 @@ public class BookController {
 
     @GetMapping("/allbooks")
     public Page<Book> getAllBooks(
-            @RequestParam int page, @RequestParam int size
+            @RequestParam int page, @RequestParam int size , @RequestParam String sortField , @RequestParam String sortDir
     )
     {
-    return bookService.getAllBooks(page, size);
+    return bookService.getAllBooks(page, size, sortField, sortDir);
     }
     @PostMapping("/addbook")
     public Book addBook(@RequestBody Book book){
@@ -34,3 +33,4 @@ public class BookController {
         return bookService.updateBook(book);
     }
 }
+//http://localhost:8080/api/book/allbooks?page=7&size=5&sortField=id

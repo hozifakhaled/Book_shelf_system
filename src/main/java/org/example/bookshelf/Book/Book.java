@@ -2,6 +2,7 @@ package org.example.bookshelf.Book;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +20,8 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id
 ;
-    @Column(name = "title", nullable = false   )
+    @NotBlank
+    @Column(name = "title", nullable = false)
     private String title;
     private int publishedYear;
 
