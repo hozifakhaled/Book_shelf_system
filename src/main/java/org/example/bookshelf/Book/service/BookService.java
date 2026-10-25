@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,8 +29,11 @@ public class BookService {
     public Book getBookByTitle(String title){
         return bookRepo.findByTitle(title);
     }
-    public Book createBook(Book book){
-        return bookRepo.save(book);
+@Transactional
+    public Book createBook(Book book) {
+        bookRepo.save(book);
+
+        throw new RuntimeException("Testing rollback");
     }
     public Book updateBook(Book book){
         if (bookRepo.findById(book.getId()).isPresent()){return bookRepo.save(book);}
