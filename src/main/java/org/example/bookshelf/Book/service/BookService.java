@@ -29,11 +29,9 @@ public class BookService {
     public Book getBookByTitle(String title){
         return bookRepo.findByTitle(title);
     }
-@Transactional
-    public Book createBook(Book book) {
-        bookRepo.save(book);
 
-        throw new RuntimeException("Testing rollback");
+    public Book createBook(Book book) {
+       return bookRepo.save(book);
     }
     public Book updateBook(Book book){
         if (bookRepo.findById(book.getId()).isPresent()){return bookRepo.save(book);}
