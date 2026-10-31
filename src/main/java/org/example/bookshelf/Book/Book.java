@@ -1,21 +1,20 @@
 package org.example.bookshelf.Book;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.bookshelf.Category.Category;
+import org.example.bookshelf.Common.BaseEntity;
+import org.hibernate.annotations.Formula;
 
-import java.time.LocalDate;
 @Getter
 @Setter
 
 @Entity
 @Table(name = "book")
 
-public class Book {
+public class Book extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id
@@ -27,6 +26,11 @@ public class Book {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    @JsonIgnore
     private Category category;
-}
+
+    @Formula("EXTRACT(YEAR FROM CURRENT_DATE)::INTEGER - published_year")
+       private int bookAge ;
+
+
+    }
+

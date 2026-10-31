@@ -1,5 +1,7 @@
 package org.example.bookshelf.Category;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +21,7 @@ public class Category {
     private String name;
     @Column(nullable = false)
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Book> books;
 
 }
