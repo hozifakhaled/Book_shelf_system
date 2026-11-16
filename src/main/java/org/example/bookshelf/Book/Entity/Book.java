@@ -1,4 +1,4 @@
-package org.example.bookshelf.Book;
+package org.example.bookshelf.Book.Entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -24,7 +24,7 @@ public class Book extends BaseEntity {
     private String title;
     private int publishedYear;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "category_id")
     private Category category;
 

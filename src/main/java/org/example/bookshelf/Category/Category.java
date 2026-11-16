@@ -1,11 +1,10 @@
 package org.example.bookshelf.Category;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.example.bookshelf.Book.Book;
+import org.example.bookshelf.Book.Entity.Book;
 
 import java.util.List;
 

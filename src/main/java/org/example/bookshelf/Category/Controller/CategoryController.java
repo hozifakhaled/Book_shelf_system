@@ -1,7 +1,5 @@
 package org.example.bookshelf.Category.Controller;
 
-import org.example.bookshelf.Book.Book;
-import org.example.bookshelf.Book.service.BookService;
 import org.example.bookshelf.Category.Category;
 import org.example.bookshelf.Category.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +21,8 @@ public class CategoryController {
     @PostMapping("/addcategory")
     public Category addBook(@RequestBody Category category){
         return categoryService.addCategory(category);
+    }
+    public Category getCategoryById(@RequestParam Long id){
+        return categoryService.getByIdCategory(id);
     }
 }

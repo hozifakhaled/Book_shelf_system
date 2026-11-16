@@ -1,13 +1,14 @@
 package org.example.bookshelf.Book.Controller;
 
-import org.example.bookshelf.Book.Book;
+import jakarta.validation.Valid;
+import org.example.bookshelf.Book.Entity.Book;
+import org.example.bookshelf.Book.DTO.CreateBookRequest;
 import org.example.bookshelf.Book.projection.BookSummary;
 import org.example.bookshelf.Book.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Year;
 import java.util.List;
 
 
@@ -22,18 +23,31 @@ public class BookController {
             @RequestParam int page, @RequestParam int size , @RequestParam String sortField , @RequestParam String sortDir
     )
     {
-    return bookService.getAllBooks(page, size, sortField, sortDir);
+        return bookService.getAllBooks(page, size, sortField, sortDir);
+    }
+    @GetMapping("/allbook")
+    public List<Book> getAllBook(
+    )
+    {
+        return bookService.getAllBook();
     }
     @PostMapping("/addbook")
-    public Book addBook(@RequestBody Book book){
+    public Book addBook(@Valid @RequestBody CreateBookRequest book){
         return bookService.createBook(book);
     }
-    @GetMapping("/{title}")
-    public Book getBooksByTitle(@PathVariable String title){
-        return bookService.getBookByTitle(title) ;
+    @GetMapping("/{id}")
+    public Book getBookById(@PathVariable long id){
+        return bookService.getBookById(id) ;
+    }
+    @GetMapping("/search")
+    public List<Book> searchBooks(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) Integer year) {
+
+        return bookService.searchBooks(title, year);
     }
     @PutMapping("/updateBook")
-    public Book updateBook(@RequestBody Book book){
+    public Book updateBook( @RequestBody Book book){
         return bookService.updateBook(book);
     }
     @GetMapping("/after-year/{year}")
